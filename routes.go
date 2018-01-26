@@ -3,6 +3,9 @@ package main
 import (
 	"net/http"
 
+	"github.com/dickmanben/rebel-api/adsets"
+	"github.com/dickmanben/rebel-api/alert"
+
 	"github.com/gorilla/mux"
 )
 
@@ -35,5 +38,41 @@ var routes = Routes{
 		"GET",
 		"/",
 		Index,
+	},
+	Route{
+		"PassThru",
+		"GET",
+		"/Passthru/{AdSetID}",
+		adsets.PassThru,
+	},
+	Route{
+		"CreateAdSet",
+		"POST",
+		"/Adset",
+		adsets.CreateAdset,
+	},
+	Route{
+		"UpdateAdset",
+		"POST",
+		"/Adset/{AdSetID}",
+		adsets.UpdateAdset,
+	},
+	Route{
+		"GetAdset",
+		"GET",
+		"/Adset/{AdSetID}",
+		adsets.GetAdset,
+	},
+	Route{
+		"GetAdsets",
+		"GET",
+		"/Adset",
+		adsets.GetAdsets,
+	},
+	Route{
+		"Alert",
+		"POST",
+		"/alert",
+		alert.All,
 	},
 }

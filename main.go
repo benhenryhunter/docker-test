@@ -7,20 +7,22 @@ import (
 	"time"
 )
 
+var (
+	port = "8080"
+)
+
+func Index(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Up")
+}
+
 func main() {
 	router := NewRouter()
+	fmt.Println("Listening on port: " + port)
 	srv := &http.Server{
 		Handler:      router,
 		Addr:         ":8080",
 		WriteTimeout: 300 * time.Second,
 		ReadTimeout:  300 * time.Second,
 	}
-
-	fmt.Println("Listening on port: 8080")
-
 	log.Fatal(srv.ListenAndServe())
-}
-
-func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome!")
 }

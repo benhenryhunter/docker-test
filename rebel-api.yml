@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: rebel-api
+  name: rebel-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: rebel-api-exposed
+  template:
+    metadata:
+      labels:
+        run: rebel-api-exposed
+    spec:
+      containers:
+      - image: localhost:5000/rebel-api:0.0.2
+        name: rebel-api
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+
+---
+# APP SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: rebel-api
+  name: rebel-api
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: rebel-api-exposed
+  type: NodePort
